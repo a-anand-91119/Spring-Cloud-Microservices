@@ -1,15 +1,25 @@
 package in.notyouraveragedev.movieinfoservice.resources;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import in.notyouraveragedev.movieinfoservice.models.Movie;
+import in.notyouraveragedev.movieinfoservice.service.MovieService;
 
 @RestController
 @RequestMapping("/movies")
 public class MovieResource {
 
+	@Autowired
+	private MovieService movieService;
+	
+	@RequestMapping("/get/{movieId}")
+	public Movie getMovieInformation(@PathVariable("movieId") String movieId) {
+		return movieService.getMovie(movieId);
+	}
+	
 	@RequestMapping("/{movieId}")
 	public Movie getMovieInfo(@PathVariable("movieId") String movieId) {
 		return getMovie(movieId);
